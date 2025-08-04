@@ -14,10 +14,10 @@ export type Question = {
 // クイズの型定義
 export type Quiz = {
   id: number;
-  gente: string;
+  genre: string;
   title: string;
   createdAt: string;
-  quiestions: Question[];
+  questions: Question[];
 };
 
 export async function GET() {
