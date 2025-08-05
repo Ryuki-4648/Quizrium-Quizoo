@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // next/rounterだと「NextRouter was not mounted」のエラーが出るためnext/navigationからimportする
 
 // 問題の型定義
@@ -19,12 +19,22 @@ export default function CreateQuizPage() {
   // フォーム状態の管理
   const [title, setTitle] = useState('');
   const [genre, setGenre] = useState('');
-  // 既存の字状態変数に以下を追加
-  const [isSubmitting, setIsSubmitting] = useState(false); // フォーム送信中の状態管理
-  //const [errorMessage, setErrorMessage] = useState<string | null>(null); // エラーメッセージの状態管理
-  const [errorMessage, setErrorMessage] = useState<{ type: string; message: string } | null>(null);
-  //const errorMessages: string[] = [];
 
+  // 既存の状態変数に以下を追加
+  // フォーム送信中の状態管理、送信中かどうか（非同期処理の最中かどうか）を判定する
+  // 目的: 二重送信防止, 送信中にボタンを無効化して、ユーザーが操作できないようにする
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // バリデーション（エラーメッセージの状態管理）
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [titleErrorMessage, setTitleErrorMessage] = useState<string | null>(null);
+  const [questionErrorMessage, setQuestionErrorMessage] = useState<string | null>(null); 
+  const [optionsErrorMessage, setOptionsErrorMessage] = useState<string | null>(null);
+
+  // TODO: ローディング状態の管理
+
+  // 送信ボタンバリデーションチェック
+  const [isFormValid, setIsFormValid] = useState(false);
 
   // 問題の配列を管理（少なくとも1つの問題を初期状態で持つ）
   const [questions, setQuestions] = useState<Question[]>([
@@ -35,6 +45,15 @@ export default function CreateQuizPage() {
       explanation: ''
     }
   ]);
+
+  // フォームの入力状態が変化したときにバリデーションをチェック
+  useEffect(() => {
+    const hasEmptyTitle = !title.trim();
+    const hasEmptyQuestion = questions.some(questionItem => !questionItem.questionText.trim());
+    const hasInvalidOptions = questions.some(questionItem => questionItem.options.length < 2 || questionItem.options.some(optionItem => !optionItem.trim()));
+    const allValid = !hasEmptyTitle && !hasEmptyQuestion && !hasInvalidOptions;
+    setIsFormValid(allValid);
+}, [title, questions]);
 
   // 問題を追加する関数
   const addQuestion = () => {
@@ -105,33 +124,50 @@ export default function CreateQuizPage() {
 
   // クイズを作成し、送信する関数
   const handleCreateQuiz =  async () => {
+
     // バリデーション
-    if (!title.trim()) {
+    let hasFormValidationError = false;
+
+    if (!title.trim()) { // trim(): 文字列の前後の空白を削除するメソッド。入力フォームでユーザーが余分な空白を入れてしまう可能性があるため。
+      console.log('title is empty');
       //setErrorMessage('クイズのタイトルを入力してください。');
-      setErrorMessage({ type: 'title', message: 'クイズのタイトルを入力してください。' });
-      return;
+      setTitleErrorMessage('クイズのタイトルを入力してください。');
+      hasFormValidationError = true;
+      setIsSubmitting(false);
+    } else {
+      setTitleErrorMessage(null);
     }
-    // trim(): 文字列の前後の空白を削除するメソッド。入力フォームでユーザーが余分な空白を入れてしまう可能性があるため。
 
     // 問題文が入力されているか確認するバリデーション
     const hasEmptyQuestions = questions.some(questionItem => !questionItem.questionText.trim()); // questions: 複数のクイズ問題（Question型）の配列
-    if (hasEmptyQuestions) {
-      //setErrorMessage('すべての問題文を入力してください');
-      setErrorMessage({ type: 'question', message: 'すべての問題文を入力してください' });
-      return;
-    }
     // some(): 配列の要素の中に、条件を満たすものが1つでもあればtrueを返すメソッド。少なくとも1つの問題文が空であればtrueのためエラーを出す。
+    if (hasEmptyQuestions) {
+      setQuestionErrorMessage('すべての問題文を入力してください');
+      hasFormValidationError = true;
+      setIsSubmitting(false);
+    } else {
+      setQuestionErrorMessage(null);
+    }
 
     // 選択肢が入力されているか確認するバリデーション
     const hasEmptyOptions = questions.some(questionItem => questionItem.options.some(optionItem => !optionItem.trim()));
     if (hasEmptyOptions) {
-      //setErrorMessage('すべての選択肢を入力してください');
-      setErrorMessage({ type: 'option', message: 'すべての選択肢を入力してください' });
-      return;
+      setOptionsErrorMessage('すべての選択肢を入力してください');
+      hasFormValidationError = true;
+      setIsSubmitting(false);
+    } else {
+      setOptionsErrorMessage(null);
     }
 
-    setErrorMessage(null); // エラーメッセージをリセット
-    setIsSubmitting(true); // 送信中フラグ
+    if (hasFormValidationError) return; // 1つでもバリデーションに引っかかった場合はPOSTしない
+
+    // エラーメッセージをリセット
+    setTitleErrorMessage(null); 
+    setQuestionErrorMessage(null);
+    setOptionsErrorMessage(null);
+
+    // 送信中フラグ
+    setIsSubmitting(true);
 
     try {
       // TODO: APIにPOSTリクエストを送信
@@ -166,13 +202,15 @@ export default function CreateQuizPage() {
       console.log('Created Quiz:', createdQuiz);
       router.push(`/quiz/${createdQuiz.id}/challenge`); // 作成したクイズのチャレンジページへ遷移
 
-    } catch (error) {
-      console.error('Error creating quiz:', error);
-      //setErrorMessage('クイズの作成中にエラーが発生しました');
-      setErrorMessage({ type: 'network', message: 'クイズの作成中にエラーが発生しました' });
+    } catch (e) {
+      // TODO: エラーハンドリング
+      // ヒント: エラーメッセージを設定してユーザーに表示
+      console.error('Error creating quiz:', e);
+      setErrorMessage('クイズの作成中にエラーが発生しました');
 
     } finally {
-      setIsSubmitting(false); // 送信中フラグをリセット
+      // 送信状態をリセット
+      setIsSubmitting(false);
     }
   }
 
@@ -199,8 +237,8 @@ export default function CreateQuizPage() {
                 required
               />
             {/* タイトルが未入力の状態で送信ボタンをクリックしたらエラーメッセージを表示する */}
-            {errorMessage && errorMessage.type === 'title' && (
-              <p className="text-red-500 text-sm mt-2">{errorMessage.message}</p>
+            {titleErrorMessage && (
+              <p className="text-red-500 text-sm mt-2">{titleErrorMessage}</p>
             )}
             </div>
             <div>
@@ -247,8 +285,9 @@ export default function CreateQuizPage() {
                     className="w-full px-3 py-2 border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     required
                   />
-                  {errorMessage && errorMessage.type === 'question' && (
-                    <p className="text-red-500 text-sm mt-2">{errorMessage.message}</p>
+                  {/* 問題文が未入力の状態で送信ボタンをクリックしたらエラーメッセージを表示する */}
+                  {questionErrorMessage && (
+                    <p className="text-red-500 text-sm mt-2">{questionErrorMessage}</p>
                   )}
                 </div>
 
@@ -259,9 +298,6 @@ export default function CreateQuizPage() {
                       選択肢<span className="text-white text-xs p-1 bg-red-500 ml-1 rounded-full">必須</span>
                     </label>
                   </div>
-                  {errorMessage && errorMessage.type === 'option' && (
-                    <p className="text-red-500 text-sm mt-2">{errorMessage.message}</p>
-                  )}
                   <div className="space-y-2">
                     {question.options.map((option, optionIndex) => (
                       <div key={optionIndex} className="flex items-center space-x-2">
@@ -293,6 +329,9 @@ export default function CreateQuizPage() {
                       </div>
                     ))}
                   </div>
+                  {optionsErrorMessage && (
+                    <p className="text-red-500 text-sm mt-2">{optionsErrorMessage}</p>
+                  )}
                   <p className="text-xs text-gray-500 mt-2 pl-6">正解の選択肢を1つ選択してください。選択肢は2つ以上作成してください。</p>
                   <button
                     onClick={() => addOption(questionIndex)}
@@ -331,12 +370,16 @@ export default function CreateQuizPage() {
             </button>
           </section>
 
+          {/* エラーメッセージ */}
+          {errorMessage && (
+            <p className="text-red-500 text-sm mt-4">{errorMessage}</p>
+          )}
           {/* アクションボタン */}
           <div className="flex justify-end space-x-4 pt-6 border-t border-gray-200">
             <button
-              disabled={isSubmitting}
+              disabled={!isFormValid || isSubmitting}
               onClick={handleCreateQuiz}
-              className="px-6 py-3 bg-blue-600 text-white rounded-lg cursor-pointer hover:bg-blue-700 focus:outline-none transition-colors"
+              className={`disabled:opacity-50 disabled:cursor-not-allowed px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold transition-colors ${isSubmitting ? 'cursor-wait' : 'cursor-pointer'}`}
             >
               クイズをつくる
             </button>
