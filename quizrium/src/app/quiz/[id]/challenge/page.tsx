@@ -8,28 +8,6 @@ interface QuizChallengePageProps {
   }>;
 }
 
-export default async function QuizChallengePage({ params }: QuizChallengePageProps) {
-  const { id } = await params;
-  console.log('Quiz ID:', id);
-
-  // クイズデータを取得
-  const quiz = await fetchQuizById(parseInt(id, 10));
-  console.log(quiz);
-
-  // クイズデータがない場合
-  if(!quiz) {
-    notFound();
-  }
-
-  return (
-    <div>
-      <h1 className="text-2xl font-bold mb-2">{quiz.title}</h1>
-      {/* クライアントコンポーネントにクイズデータを渡す */}
-      <QuizForm quiz={quiz} />
-    </div>
-  );
-}
-
 // クイズデータを取得する関数
 async function fetchQuizById(id: number): Promise<Quiz | null> {
   try {
@@ -59,15 +37,41 @@ async function fetchQuizById(id: number): Promise<Quiz | null> {
     if (!response.ok) {
       throw new Error(`Failed to fetch quiz with id: ${id}`);
     }
-    
+
     const quizzes: Quiz[] = await response.json();
     console.log(quizzes)
 
-    const quiz = quizzes.find((item) => item.id === id);
-    return quiz ?? null;
+    // 指定のIDと一致するクイズを探す
+    const quizWithMatchingId = quizzes.find((item) => item.id === id);
+    return quizWithMatchingId ?? null;
 
   } catch(e) {
     console.error('Error fetching quiz:', e);
     return null;
   }
+}
+
+export default async function QuizChallengePage({ params }: QuizChallengePageProps) {
+  const { id } = await params; // URLパラメータからIDを取得
+  console.log(id, typeof id); // string
+
+  // 指定したIDから該当のクイズデータを取得
+  const getQuizData = await fetchQuizById(parseInt(id, 10));
+  // parseInt：文字列を数値に変換する。第1引数に文字列の値、第2引数に基数（省略可）を指定。
+  // 基数に10を指定すると10進数として処理される。
+  
+  console.log(getQuizData);
+
+  // クイズデータがない場合
+  if(!getQuizData) {
+    notFound();
+  }
+
+  return (
+    <div>
+      <h1 className="text-2xl font-bold mb-12">タイトル：{getQuizData.title}</h1>
+      {/* クライアントコンポーネントにクイズデータを渡す */}
+      <QuizForm quiz={getQuizData} />
+    </div>
+  );
 }
