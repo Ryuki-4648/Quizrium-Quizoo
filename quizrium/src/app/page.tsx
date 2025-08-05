@@ -10,26 +10,26 @@ export default async function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
       <h1 className="text-4xl font-bold mb-4">Quizrium / Quizoo</h1>
-      <p className="text-center mb-10">「クイズをつくる」から新しいクイズを作成できます。<br />
+      <p className="text-center mb-20">「クイズをつくる」から新しいクイズを作成できます。<br />
         作成したクイズは「クイズのひろば」に表示されます。
       </p>
 
       <h2 className="text-2xl font-bold mb-8">クイズのひろば</h2>
 
       {quizzes.length > 0 ? (
-        <ul className="flex gap-4">
+        <ul className="flex gap-12 flex-wrap justify-between">
           {quizzes.map((quizItem) => (
-            <li key={quizItem.id} className="border-1 rounded-md px-4 py-6 w-80">
+            <li key={quizItem.id} className="border-1 rounded-xl px-4 py-6 w-88">
               <p className="font-bold mb-2 text-xl">{quizItem.title}</p>
               <span className="text-sm bg-gray-500 text-white rounded-full py-1 px-2">{quizItem.genre}</span>
               <p className="mt-4">作成日：{quizItem.createdAt}</p>
               <p className="mb-6">問題数：{quizItem.questions.length}問</p>
-              <Link href={`/quiz/${quizItem.id}`} className="flex justify-center rounded-full bg-gray-700 text-white py-2">クイズにこたえる</Link>
+              <Link href={`/quiz/${quizItem.id}/challenge`} className="flex justify-center rounded-full bg-gray-700 text-white py-2">クイズにこたえる</Link>
             </li>
           ))}
         </ul>
       ) : (
-        <p>クイズがありません</p>
+        <p>まだクイズがありません</p>
       )}
     </main>
   );
@@ -47,6 +47,7 @@ async function fetchQuizzes(): Promise<Quiz[]> {
     cache: 'no-store' // SSRと同様、リクエストごとに新しいデータを取得
     // または { next: { revalidate: 60 } } でISR (60秒ごとにデータを再検証)
   });
+  console.log(response);
 
   // エラーハンドリング
   if(!response.ok) {
