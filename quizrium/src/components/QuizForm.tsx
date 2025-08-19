@@ -108,7 +108,7 @@ export default function QuizForm({ quiz }: QuizFormProps) {
         {/* TODO: 選択肢の表示とイベントハンドリング */}
         <ul className="space-y-4">
           {currentQuestion.options.map((option, index) => (
-            <li key={index} className={`p-2 border rounded ${selectedOption === index ? 'bg-blue-100' : 'bg-white'}`}>
+            <li key={index} className={`p-2 border rounded ${selectedOption === index ? 'bg-blue-10 dark:bg-blue-900/30 border-blue-500' : 'bg-white hover:bg-gray-100 dark:hover:bg-gray-700 border-gray-300 dark:border-gray-600'}`}>
               <label className="cursor-pointer">
                 <input
                   type="radio"

@@ -11,8 +11,18 @@ export default function Navigation() {
 
   return (
     <nav className="space-x-8">
-      <Link href="/" className={`${pathname === "/" ? "text-gray-500" : "text-white"}`}>Home</Link>
-      <Link href="/" className="w-124 bg-white text-black rounded-full px-4 py-2 font-bold">クイズをつくる</Link>
+      <Link
+        href="/"
+        className={`${pathname === "/" ? "text-gray-500 pointer-events-none " : "text-white"}`}
+      >
+        クイズのひろば
+      </Link>
+      <Link
+        href="/quiz/create"
+        className="text-text w-[124px] bg-lightAccent dark:bg-darkSecondary rounded-full px-4 py-2 font-bold"
+      >
+        クイズをつくる
+      </Link>
     </nav>
   )
 }

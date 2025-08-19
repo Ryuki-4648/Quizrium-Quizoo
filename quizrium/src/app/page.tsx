@@ -8,7 +8,7 @@ export default async function Home() {
   console.log(quizzes);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
+    <div className="flex min-h-screen flex-col items-center justify-center">
       <h1 className="text-4xl font-bold mb-4">Quizrium / Quizoo</h1>
       <p className="text-center mb-20">「クイズをつくる」から新しいクイズを作成できます。<br />
         作成したクイズは「クイズのひろば」に表示されます。
@@ -21,17 +21,17 @@ export default async function Home() {
           {quizzes.map((quizItem) => (
             <li key={quizItem.id} className="border-1 rounded-xl px-4 py-6 w-88">
               <p className="font-bold mb-2 text-xl">{quizItem.title}</p>
-              <span className="text-sm bg-gray-500 text-white rounded-full py-1 px-2">{quizItem.genre}</span>
+              <span className="text-sm bg-lightAccent dark:bg-darkSecondary text-white rounded-full py-1 px-2">{quizItem.genre}</span>
               <p className="mt-4">作成日：{quizItem.createdAt}</p>
               <p className="mb-6">問題数：{quizItem.questions.length}問</p>
-              <Link href={`/quiz/${quizItem.id}/challenge`} className="flex justify-center rounded-full bg-gray-700 text-white py-2">クイズにこたえる</Link>
+              <Link href={`/quiz/${quizItem.id}/challenge`} className="flex justify-center rounded-full bg-lightPrimary dark:bg-darkPrimary text-white py-2">クイズにこたえる</Link>
             </li>
           ))}
         </ul>
       ) : (
         <p>まだクイズがありません</p>
       )}
-    </main>
+    </div>
   );
 }
 

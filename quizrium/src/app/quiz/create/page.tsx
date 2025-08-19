@@ -233,7 +233,7 @@ export default function CreateQuizPage() {
                 placeholder="クイズのタイトルを入力してください" 
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 required
               />
             {/* タイトルが未入力の状態で送信ボタンをクリックしたらエラーメッセージを表示する */}
@@ -250,7 +250,7 @@ export default function CreateQuizPage() {
                 placeholder="クイズのジャンルを入力してください（未入力の場合は「未分類」になります）" 
                 value={genre}
                 onChange={(e) => setGenre(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
           </section>
@@ -282,7 +282,7 @@ export default function CreateQuizPage() {
                     placeholder="問題文を入力してください" 
                     value={question.questionText}
                     onChange={(e) => handleQuestionTextChange(questionIndex, e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     required
                   />
                   {/* 問題文が未入力の状態で送信ボタンをクリックしたらエラーメッセージを表示する */}
@@ -313,7 +313,7 @@ export default function CreateQuizPage() {
                           placeholder={`選択肢 ${optionIndex + 1}を入力してください`}
                           value={option}
                           onChange={(e) => handleOptionChange(questionIndex, optionIndex, e.target.value)}
-                          className="flex-1 px-3 py-2 border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                           required
                         />
 
@@ -353,7 +353,7 @@ export default function CreateQuizPage() {
                         updatedQuestions[questionIndex].explanation = e.target.value;
                         setQuestions(updatedQuestions);
                       }}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
                   </div>
 
@@ -364,7 +364,7 @@ export default function CreateQuizPage() {
 
             <button 
               onClick={addQuestion}
-              className="w-full py-3 border-2 border-dashed border-gray-300 rounded-lg text-gray-600 hover:border-gray-400 cursor-pointer hover:text-gray-800 transition-colors"
+              className="w-full py-3 border-2 border-dashed border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg text-gray-600 hover:border-gray-400 cursor-pointer hover:text-gray-800 transition-colors"
             >
               + 問題を追加
             </button>

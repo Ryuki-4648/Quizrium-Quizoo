@@ -5,6 +5,7 @@ import '@/app/globals.css';
 import { Providers } from '@/app/providers';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import ThemeToggle from '@/components/ThemeToggle';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -23,20 +24,23 @@ interface RootLayoutProps {
 /* ルートレイアウト（ app/layout.tsx ）はアプリ全体の構造を定義する。htmlとbodyタグを必ず含める。 */
 export default function RootLayout({children}: RootLayoutProps) {
     return (
-      <html lang="ja">
+      <html lang="ja" suppressHydrationWarning>
         <body className={inter.className}>
           <Providers>
             <div className="flex flex-col min-h-screen">
-              <header className="bg-gray-800 text-white py-4 fixed top-0 left-0 right-0 z-50">
+              <header className="bg-lightSecondary dark:bg-darkPrimary text-white py-4 fixed top-0 left-0 right-0 z-50">
                 <div className="container mx-auto px-4 flex items-center justify-between">
                   <Link href="/">
-                    <h1 className="text-2xl font-bold">Quizrium<span className="text-sm text-gray-400 font-normal ml-4">クイズアプリ</span></h1>
+                    <h1 className="text-2xl font-bold">Quizrium / Quizoo<span className="text-sm text-gray-400 font-normal ml-4">クイズアプリ</span></h1>
                   </Link>
-                  <Navigation />
+                  <div className="flex items-center gap-4">
+                    <ThemeToggle />
+                    <Navigation />
+                  </div>
                 </div>
               </header>
               {/* メインコンテンツ部分はchildrenプロパティを使用 */}
-              <main className="flex-grow py-20 px-10">
+              <main className="flex-grow py-40 px-24">
                 {children}
               </main>
               <Footer />

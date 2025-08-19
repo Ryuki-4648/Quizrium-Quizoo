@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { quizSlice } from "./features/quiz/quizSlice"; // quizSliceをインポート
+import { themeSlice } from "./features/theme/themeSlice"; // themeReducerをインポート
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,9 @@ export const store = configureStore({
 
   // TODO: 作成したquizReducerをインポートし、storeのreducerに追加
     quiz: quizSlice.reducer, // quizSliceのreducerを追加
+
+    // TODO: themeReducerをインポートし、storeのreducerに追加
+    theme: themeSlice.reducer, // themeSliceのreducerを追加
   },
 
   // 開発環境ではDevToolsを有効化
