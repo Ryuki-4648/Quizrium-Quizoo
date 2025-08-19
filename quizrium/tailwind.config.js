@@ -9,17 +9,7 @@ module.exports = {
   ],
   theme: {
     extend: {
-      colors: {
-        'text': '#2e2e2e', // ブラック
-        'lightPrimary': '#033557', // ダークブルー
-        'lightSecondary': '#3ccaff', // スカイブルー
-        'lightAccent': '#FFEF00', // レモンイエロー
-        'lightBackground': '#FFFFFF', // White     
-        'darkPrimary': '#006888', // マリンブルー
-        'darkSecondary': '#13bed0', // ライトマリンブルー
-        'darkAccent': '#FEF236', // レモンイエロー
-        'darkBackground': '#fafafa', // ホワイト
-      }
+      colors: {}
     },
   },
   plugins: [],
