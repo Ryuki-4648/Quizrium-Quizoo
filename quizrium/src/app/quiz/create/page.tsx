@@ -1,5 +1,6 @@
 'use client';
 
+import { RequiredBadgeInputGroup } from "@/components/Form/RequiredBadgeInputGroup";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 // next/rounterだと「NextRouter was not mounted」のエラーが出るためnext/navigationからimportする
@@ -222,11 +223,14 @@ export default function CreateQuizPage() {
         <div className="bg-white rounded-lg shadow-lg p-6 space-y-8">
 
           {/* クイズ基本情報セクション */}
-          <section className="space-y-4">
+          <section className="space-y-6 mb-16">
             <h3 className="text-xl font-semibold text-gray-800 mb-4">基本情報</h3>
             <div>
-              <label className="block text-md font-bold text-gray-700 mb-2">
-                タイトル<span className="text-white text-xs p-1 bg-red-500 ml-1 rounded-full">必須</span>
+              <label
+                className="text-md font-bold text-gray-700 mb-2 flex items-center"
+              >
+                タイトル
+                <RequiredBadgeInputGroup />
               </label>
               <input 
                 type="text" 
@@ -242,7 +246,7 @@ export default function CreateQuizPage() {
             )}
             </div>
             <div>
-              <label className="block text-md font-bold text-gray-700 mb-2">
+              <label className="text-md font-bold text-gray-700 mb-2 flex items-center">
                 ジャンル
               </label>
               <input 
@@ -256,7 +260,7 @@ export default function CreateQuizPage() {
           </section>
 
           {/* 問題フォームセクション */}
-          <section className="space-y-6">
+          <section className="space-y-8">
             <h3 className="text-xl font-semibold text-gray-800 mb-4">問題</h3>
             
             {questions.map((question, questionIndex) => (
@@ -275,14 +279,15 @@ export default function CreateQuizPage() {
 
                 {/* 問題文 */}
                 <div className="mb-8">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    問題文<span className="text-white text-xs p-1 bg-red-500 ml-1 rounded-full">必須</span>
+                  <label className="text-sm font-medium text-gray-700 mb-2 flex items-center">
+                    問題文
+                    <RequiredBadgeInputGroup />
                   </label>
                   <textarea
                     placeholder="問題文を入力してください" 
                     value={question.questionText}
                     onChange={(e) => handleQuestionTextChange(questionIndex, e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 bg-white border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     required
                   />
                   {/* 問題文が未入力の状態で送信ボタンをクリックしたらエラーメッセージを表示する */}
@@ -294,8 +299,9 @@ export default function CreateQuizPage() {
                 {/* 選択肢 */}
                 <div className="mb-4">
                   <div className="flex justify-between items-center mb-2">
-                    <label className="block text-sm font-medium text-gray-700">
-                      選択肢<span className="text-white text-xs p-1 bg-red-500 ml-1 rounded-full">必須</span>
+                    <label className="text-sm font-medium text-gray-700 flex items-center">
+                      選択肢
+                      <RequiredBadgeInputGroup />
                     </label>
                   </div>
                   <div className="space-y-2">
@@ -313,7 +319,7 @@ export default function CreateQuizPage() {
                           placeholder={`選択肢 ${optionIndex + 1}を入力してください`}
                           value={option}
                           onChange={(e) => handleOptionChange(questionIndex, optionIndex, e.target.value)}
-                          className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="bg-white flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                           required
                         />
 
@@ -353,7 +359,7 @@ export default function CreateQuizPage() {
                         updatedQuestions[questionIndex].explanation = e.target.value;
                         setQuestions(updatedQuestions);
                       }}
-                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 bg-white border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
                   </div>
 
