@@ -31,12 +31,12 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={() => dispatch({ type: 'theme/toggleDarkMode' })}
-      className="cursor-pointer p-2 rounded bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
+      className="flex items-center cursor-pointer py-0.5 px-4 rounded border-1 border-white bg-lightPrimary hover:bg-lightAccent dark:bg-darkPrimary duration-200 dark:hover:bg-darkTertiary text-white"
       aria-label="ダークモード切り替え"
     >
       {/* TODO: darkModeの状態に応じてアイコンを表示 */}
       {/* ヒント: darkMode ? 太陽アイコン : 月アイコン */}
-      {darkMode ? 'ライトモード🦁' : 'ダークモード🪼'}
+      {darkMode ? 'ライトモード 🦁' : 'ダークモード 🪼'}
     </button>
   )
 }
