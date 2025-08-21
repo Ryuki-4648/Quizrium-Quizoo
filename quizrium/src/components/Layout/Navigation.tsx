@@ -1,9 +1,9 @@
 "use client";
 // クライアントコンポーネントにするために必要。usePathnameのようなクライアントサイドフックを使用するコンポーネントには必ずuse clientが必要。
 
-import Link from "next/link";
-import Modal from "./Modal";
 import { useState } from "react";
+import Link from "next/link";
+import Modal from "@/components/Modal";
 // import { usePathname } from "next/navigation";
 
 export default function Navigation() {

@@ -9,8 +9,8 @@
  * ThemeToggle.tsx で useEffect を import しているため、「これはクライアントコンポーネントだよ」と明示しないとビルドエラーになります。
  */
 
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
 export default function ThemeToggle() {
   const dispatch = useAppDispatch();
