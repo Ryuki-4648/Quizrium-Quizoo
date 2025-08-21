@@ -3,7 +3,7 @@ export function calculateScore(answers: number[], correctAnswers: number[]): num
     throw new Error('回答数と問題数が一致しません');
   }
   return answers.reduce((score, answer, index) => {
-  return score + (answer === correctAnswers[index] ? 1 : 0);
+    return score + (answer === correctAnswers[index] ? 1 : 0);
   }, 0);
 }
 

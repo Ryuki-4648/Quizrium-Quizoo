@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
-const nextJest = require('next/jest')
+// const nextJest = require('next/jest')
 
 /**
  * require('next/jest')に対して以下のエラーあり
@@ -12,27 +12,54 @@ const nextJest = require('next/jest')
  * import nextJest from 'next/jest.js'; ESM 形式
  */
 
-const createJestConfig = nextJest({
-  // Next.jsアプリケーションのルートディレクトリを指定
-  dir: './',
-})
+// const createJestConfig = nextJest({
+//   // Next.jsアプリケーションのルートディレクトリを指定
+//   dir: './',
+// })
 
-const customJestConfig = {
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
-  testEnvironment: 'jest-environment-jsdom',
-  moduleNameMapper: {
-  '^@/(.*)$': '<rootDir>/$1',
-  },
+// const customJestConfig = {
+//   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+//   testEnvironment: 'jest-environment-jsdom',
+//   moduleNameMapper: {
+//   '^@/(.*)$': '<rootDir>/$1',
+//   },
   
-  // カバレッジ設定
-  collectCoverageFrom: [
-  'app/**/*.{js,jsx,ts,tsx}',
-  'components/**/*.{js,jsx,ts,tsx}',
-  'lib/**/*.{js,jsx,ts,tsx}',
-  'util/**/*.{js,jsx,ts,tsx}',
-  '!**/*.d.ts',
-  '!**/node_modules/**',
-  '!**/.next/**',
+//   // カバレッジ設定
+//   collectCoverageFrom: [
+//   'app/**/*.{js,jsx,ts,tsx}',
+//   'components/**/*.{js,jsx,ts,tsx}',
+//   'lib/**/*.{js,jsx,ts,tsx}',
+//   'util/**/*.{js,jsx,ts,tsx}',
+//   '!**/*.d.ts',
+//   '!**/node_modules/**',
+//   '!**/.next/**',
+//   ],
+// }
+// module.exports = createJestConfig(customJestConfig)
+
+module.exports = {
+  testEnvironment: 'jest-environment-jsdom',
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+  transform: {
+    '^.+\\.(js|jsx|ts|tsx)$': [
+      'babel-jest',
+    {
+      presets: [
+        '@babel/preset-env',
+        ['@babel/preset-react', { runtime: 'automatic' }],
+        '@babel/preset-typescript',
+      ],
+    },
   ],
-}
-module.exports = createJestConfig(customJestConfig)
+  },
+  moduleNameMapper: {
+    // '^@/(.*)$': '<rootDir>/$1',
+    // 上記の場合、moduleNameMapperが@/lib/hooksを正しく解決できないためnpm testでエラー発生する。
+    // @/lib/hooks → <rootDir>/lib/hooks と解釈される。
+    '^@/(.*)$': '<rootDir>/src/$1', // src配下を解決
+    '\\.(css|less|scss|sass)$': '<rootDir>/__mocks__/styleMock.js',
+  },
+  transformIgnorePatterns: ['node_modules/(?!(.*\\.mjs$))'],
+  testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
+};
