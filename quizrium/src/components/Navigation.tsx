@@ -33,7 +33,7 @@ export default function Navigation() {
         </Link>
         <Link
           href="/quiz/create"
-          className="flex items-center justify-center tracking-wider duration-300 text-text border-2 border-lightAccent dark:border-none hover:text-white hover:bg-lightPrimary dark:text-white w-[200px] bg-lightAccent gradient-sky-blue rounded-full px-4 py-2 font-bold"
+          className="flex items-center justify-center tracking-wider duration-300 text-text border-2 border-lightAccent dark:border-none hover:text-lightAccent hover:bg-white dark:text-white w-[200px] bg-lightAccent gradient-sky-blue rounded-full px-4 py-2 font-bold"
         >
           クイズをつくる
         </Link>
@@ -48,8 +48,8 @@ export default function Navigation() {
           <p className="text-text mb-8">
             新しくクイズをつくるときは「クイズをつくる」をクリックしてください。<br />
             つくったクイズは「クイズのひろば」に表示されます。<br /><br />
-            「クイズのひろば」では、他の人がつくったクイズにチャレンジできます。<br />
-            「クイズにこたえる」をクリックしてみよう。
+            「クイズのひろば」では、他の人がつくったクイズを見ることができます。<br />
+            「クイズにこたえる」をクリックしてチャレンジしてみよう。
           </p>
           <h2 className="text-text text-xl font-bold mb-4 text-center">モードの説明</h2>
           <p className="text-text">

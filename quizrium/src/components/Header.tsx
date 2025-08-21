@@ -18,7 +18,7 @@ export default function Header() {
         <Link href="/">
           <h1 className="text-lg lg:text-2xl tracking-wide font-light duration-300 dark:hover:text-darkTertiary">
             Quizrium / Quizoo
-            <span className="text-sm text-white font-light lg:font-normal ml-4">だれでもクイズ</span>
+            <span className="text-sm text-white font-light lg:font-normal ml-4">ふしぎなクイズのせかい</span>
           </h1>
         </Link>
         <div
