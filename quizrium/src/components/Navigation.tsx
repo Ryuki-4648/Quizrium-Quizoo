@@ -9,9 +9,8 @@ import { useState } from "react";
 export default function Navigation() {
 
   const [displayModal, setDisplayModal] = useState(false);
-  const handleHowToPlay = () => {
-    setDisplayModal(true);
-  }
+  const handleHowToPlay = () => setDisplayModal(true);
+  const closeModal = () => setDisplayModal(false);
 
   // 現在のパスを取得
   // const pathname = usePathname(); // usePathnameフックを使用
@@ -41,7 +40,7 @@ export default function Navigation() {
       </nav>
 
       {displayModal && (
-        <Modal>
+        <Modal onClose={closeModal}>
           <h2 className="text-text text-3xl font-bold mb-4 text-center">あそびかた</h2>
           <p className="text-text mb-4 font-bold text-center text-lg">
             Quizrium / Quizoo の世界へようこそ！
