@@ -44,6 +44,8 @@ module.exports = {
     '^.+\\.(js|jsx|ts|tsx)$': [
       'babel-jest',
     {
+      // babel.config.jsは削除し、babel-jest用の設定をこのファイルに残す（アプリ本体では SWC（Next.js デフォルト）を使い、テスト実行時だけ Babel を使う構成）
+      // babel.config.jsファイルがあると「Syntax error: "next/font" requires SWC although Babel is being used due to a custom babel config being present.」エラーが発生する
       presets: [
         '@babel/preset-env',
         ['@babel/preset-react', { runtime: 'automatic' }],
