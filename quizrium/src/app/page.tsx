@@ -8,29 +8,59 @@ export default async function Home() {
   const quizzes = await fetchQuizzes();
   console.log(quizzes);
 
+  // ジャンル
   console.log(quizzes.map(item => item.genre))
+  const quizzesGenre = quizzes.map(item => item.genre);
+  // 重複しているジャンルを除去
+  const filterQuizzesGenre = quizzesGenre.filter((value, index, self) =>
+    self.indexOf(value) === index
+  );
+  console.log(filterQuizzesGenre);
+
+  // 「未分類」を最後に移動。空のジャンルは表示しない。
+  const changeFilterQuizzesGenre = filterQuizzesGenre.filter(item => item !== "未分類");
+  console.log(changeFilterQuizzesGenre)
+  if (filterQuizzesGenre.includes("未分類")) {
+    changeFilterQuizzesGenre.push("未分類");
+  } else if (filterQuizzesGenre.includes("")) {
+    changeFilterQuizzesGenre.push("");
+  }
 
   return (
-    <div className="flex w-full xl:w-[1100px] 2xl:w-[1400px] mx-auto min-h-screen flex-col items-center justify-center">
+    <div className="flex w-full xl:w-[1150px] 2xl:w-[1400px] mx-auto min-h-screen flex-col items-center justify-center">
       {/* <h1 className="text-4xl font-light mb-4 dark:text-white">Quizrium / Quizoo</h1> */}
 
       <h2 className="text-2xl lg:text-3xl font-bold mb-4 lg:mb-8 dark:text-white">クイズのひろば</h2>
-      <p className="text-md text-center mb-12 lg:mb-20 lg:tracking-wider leading-8 dark:text-white">
+      <p className="text-md text-center mb-12 lg:mb-16 lg:tracking-wider leading-8 dark:text-white">
         「クイズをつくる」から<br className="lg:hidden" />新しいクイズを作成できます。<br />
         作成したクイズは<br className="lg:hidden" />「クイズのひろば」に表示されます。
       </p>
 
-      <section className="">
-        絞り込み検索
-        <input type="radio" id="" name="search" className="" />
-        <label htmlFor="" className="">すべて</label>
-        
-        <input type="radio" id="" name="search" className="" />
-        <label htmlFor="" className=""></label>
+      <section className="w-full mb-12">
+        <div
+          className="w-full bg-[rgba(255,255,255,0.7)] dark:bg-[rgba(0,104,136,0.4)] border-2 border-lightPrimary dark:border-white rounded-lg p-4 flex flex-wrap gap-4"
+        >
+          <p className="font-bold text-md mr-2 dark:text-white">絞り込み検索</p>
+          <input type="radio" id="all" name="search" className="hidden" />
+          <label htmlFor="all" className="cursor-pointer bg-gray-300 py-0.5 px-4 rounded-full">すべて</label>
+          {changeFilterQuizzesGenre.map((genre, index) => (
+            <div key={index}>
+              <input type="radio" id={`genre-${index}`} name="search" className="hidden" />
+              <label
+                htmlFor={`genre-${index}`}
+                className="cursor-pointer bg-gray-300 py-0.5 px-3 rounded-full"
+              >
+                {genre}
+              </label>
+            </div>
+          ))}
+        </div>
       </section>
 
       {quizzes.length > 0 ? (
-        <ul className="gap-12 2xl:gap-20 flex-wrap justify-center grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 flex-box">
+        <ul
+          className="gap-12 2xl:gap-20 flex-wrap justify-center grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 flex-box"
+        >
           {quizzes.map((quizItem) => (
             <li
               key={quizItem.id}
