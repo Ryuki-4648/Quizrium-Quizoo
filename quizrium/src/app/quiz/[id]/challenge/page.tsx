@@ -68,10 +68,12 @@ export default async function QuizChallengePage({ params }: QuizChallengePagePro
   }
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-12">タイトル：{getQuizData.title}</h1>
-      {/* クライアントコンポーネントにクイズデータを渡す */}
-      <QuizForm quiz={getQuizData} />
-    </div>
+    <section>
+      <div className="bg-[rgba(255,255,255,0.9)] rounded-lg shadow-lg p-6">
+        <h1 className="text-2xl font-bold mb-12">タイトル：{getQuizData.title}</h1>
+        {/* クライアントコンポーネントにクイズデータを渡す */}
+        <QuizForm quiz={getQuizData} />
+      </div>
+    </section>
   );
 }

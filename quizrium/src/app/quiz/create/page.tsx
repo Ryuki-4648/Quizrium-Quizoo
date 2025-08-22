@@ -130,8 +130,7 @@ export default function CreateQuizPage() {
     let hasFormValidationError = false;
 
     if (!title.trim()) { // trim(): 文字列の前後の空白を削除するメソッド。入力フォームでユーザーが余分な空白を入れてしまう可能性があるため。
-      console.log('title is empty');
-      //setErrorMessage('クイズのタイトルを入力してください。');
+      console.log('タイトルが空になっています。必須入力です。');
       setTitleErrorMessage('クイズのタイトルを入力してください。');
       hasFormValidationError = true;
       setIsSubmitting(false);
@@ -201,8 +200,8 @@ export default function CreateQuizPage() {
       // ヒント: ユーザーにフィードバックを表示し、適切なページに遷移
       const createdQuiz = await response.json();
       console.log('Created Quiz:', createdQuiz);
-      router.push(`/quiz/${createdQuiz.id}/challenge`); // 作成したクイズのチャレンジページへ遷移
 
+      router.push('/'); // 作成したらトップに戻る
     } catch (e) {
       // TODO: エラーハンドリング
       // ヒント: エラーメッセージを設定してユーザーに表示
@@ -218,16 +217,15 @@ export default function CreateQuizPage() {
   return (
     <div className="min-h-screen">
       <div className="max-w-4xl mx-auto px-4">
-        <h2 className="text-3xl font-bold text-gray-900 mb-8">クイズをつくる</h2>
 
-        <div className="bg-white rounded-lg shadow-lg p-6 space-y-8">
-
+        <div className="bg-white dark:bg-darkPrimary rounded-lg shadow-lg px-6 py-12 space-y-8">
+          <h2 className="text-3xl font-bold text-text dark:text-white mb-8 text-center">クイズをつくる</h2>
           {/* クイズ基本情報セクション */}
           <section className="space-y-6 mb-16">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">基本情報</h3>
+            <h3 className="text-xl font-semibold text-text dark:text-white mb-4">基本情報</h3>
             <div>
               <label
-                className="text-md font-bold text-gray-700 mb-2 flex items-center"
+                className="text-md font-bold text-text dark:text-white mb-2 flex items-center"
               >
                 タイトル
                 <RequiredBadgeInputGroup />
@@ -246,7 +244,7 @@ export default function CreateQuizPage() {
             )}
             </div>
             <div>
-              <label className="text-md font-bold text-gray-700 mb-2 flex items-center">
+              <label className="text-md font-bold text-text dark:text-white mb-2 flex items-center">
                 ジャンル
               </label>
               <input 
@@ -261,12 +259,12 @@ export default function CreateQuizPage() {
 
           {/* 問題フォームセクション */}
           <section className="space-y-8">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">問題</h3>
+            <h3 className="text-xl font-semibold text-text dark:text-white mb-4">問題</h3>
             
             {questions.map((question, questionIndex) => (
-              <div key={questionIndex} className="border border-gray-200 rounded-lg p-6 bg-gray-50">
+              <div key={questionIndex} className="border border-gray-200 rounded-lg p-6 bg-gray-50 dark:bg-darkPrimary">
                 <div className="flex justify-between items-center mb-4">
-                  <h4 className="text-lg font-medium text-gray-800">問題 {questionIndex + 1}</h4>
+                  <h4 className="text-lg font-medium text-text dark:text-white">問題 {questionIndex + 1}</h4>
                   {questions.length > 1 && (
                     <button
                       onClick={() => removeQuestion(questionIndex)}
@@ -279,7 +277,7 @@ export default function CreateQuizPage() {
 
                 {/* 問題文 */}
                 <div className="mb-8">
-                  <label className="text-sm font-medium text-gray-700 mb-2 flex items-center">
+                  <label className="text-md font-medium text-text dark:text-white mb-2 flex items-center">
                     問題文
                     <RequiredBadgeInputGroup />
                   </label>
@@ -299,7 +297,7 @@ export default function CreateQuizPage() {
                 {/* 選択肢 */}
                 <div className="mb-4">
                   <div className="flex justify-between items-center mb-2">
-                    <label className="text-sm font-medium text-gray-700 flex items-center">
+                    <label className="text-md font-medium text-text dark:text-white flex items-center">
                       選択肢
                       <RequiredBadgeInputGroup />
                     </label>
@@ -338,17 +336,19 @@ export default function CreateQuizPage() {
                   {optionsErrorMessage && (
                     <p className="text-red-500 text-sm mt-2">{optionsErrorMessage}</p>
                   )}
-                  <p className="text-xs text-gray-500 mt-2 pl-6">正解の選択肢を1つ選択してください。選択肢は2つ以上作成してください。</p>
+                  <p className="text-xs text-gray-500 dark:text-white mt-2 pl-6">
+                    正解の選択肢を1つ選択してください。選択肢は2つ以上作成してください。
+                    </p>
                   <button
                     onClick={() => addOption(questionIndex)}
-                    className="text-blue-600 hover:text-blue-800 font-medium ml-6 mt-4 cursor-pointer transition-colors"
+                    className="text-lightPrimary hover:text-lightAccent dark:text-darkAccent dark:hover:text-darkSecondary ml-6 mt-4 cursor-pointer transition-colors"
                   >
                     + 選択肢を追加
                   </button>
 
                   {/* 説明文 */}
                   <div className="mt-8">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-md font-medium text-text dark:text-white mb-2">
                       問題の解説
                     </label>
                     <textarea
@@ -370,9 +370,9 @@ export default function CreateQuizPage() {
 
             <button 
               onClick={addQuestion}
-              className="w-full py-3 border-2 border-dashed border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg text-gray-600 hover:border-gray-400 cursor-pointer hover:text-gray-800 transition-colors"
+              className="w-full py-6 text-gray-600 dark:text-white border-2 border-dashed border-gray-300 hover:text-lightPrimary hover:border-lightPrimary dark:border-gray-600 dark:bg-gray-700 dark:hover:border-darkSecondary dark:hover:text-darkSecondary rounded-lg cursor-pointer transition-colors duration-300"
             >
-              + 問題を追加
+              + 問題を追加する
             </button>
           </section>
 
@@ -385,7 +385,7 @@ export default function CreateQuizPage() {
             <button
               disabled={!isFormValid || isSubmitting}
               onClick={handleCreateQuiz}
-              className={`disabled:opacity-50 disabled:cursor-not-allowed px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold transition-colors ${isSubmitting ? 'cursor-wait' : 'cursor-pointer'}`}
+              className={`disabled:opacity-50 disabled:cursor-not-allowed px-12 py-3 bg-lightPrimary hover:bg-lightAccent dark:bg-darkSecondary text-white dark:text-darkPrimary dark:hover:bg-darkTertiary dark:hover:text-white rounded-full font-semibold transition-colors duration-200 ${isSubmitting ? 'cursor-wait' : 'cursor-pointer'}`}
             >
               クイズをつくる
             </button>

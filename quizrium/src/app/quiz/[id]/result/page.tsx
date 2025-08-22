@@ -41,10 +41,11 @@ export default async function ResultPage({ params }: ResultPageProps) {
 
   // 3. クイズが存在しない場合はnotFound()
   const quiz = await fetchQuizById(parseInt(id, 10));
+  console.log(quiz);
   if (!quiz) {
+    console.log(quiz);
     notFound(); // クイズが見つからない場合は404ページを表示
   }
-
 
   // 4. ResultClientコンポーネントにquizを渡す
   return <ResultClient quiz={quiz} />;

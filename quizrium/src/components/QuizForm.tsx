@@ -96,20 +96,23 @@ export default function QuizForm({ quiz }: QuizFormProps) {
   // const isLastQuestion = currentQuestionIndexNumber === quiz.questions.length - 1;
 
   return (
-    <section className="">
+    <div className="">
 
       <div className="">
+        <p className="mb-8 text-sm">答えを1つ選択して次のページに進んでください。前のページには戻ることはできません。</p>
         {/* TODO: 問題番号表示 */}
-        <h2 className="text-md font-medium mb-4">問題 {currentQuestionIndexNumber + 1} / 全 {quiz.questions.length} 問</h2>
-
+        <h2 className="text-lg font-medium mb-4">問題 {currentQuestionIndexNumber + 1} / 全 {quiz.questions.length} 問</h2>
         {/* TODO: 問題文表示 */}
-        <p className="text-xl mb-4 font-bold">{currentQuestion.questionText}</p>
+        <p className="text-xl mb-8 font-bold">{currentQuestion.questionText}</p>
 
         {/* TODO: 選択肢の表示とイベントハンドリング */}
         <ul className="space-y-4">
           {currentQuestion.options.map((option, index) => (
-            <li key={index} className={`p-2 border rounded ${selectedOption === index ? 'bg-blue-10 dark:bg-blue-900/30 border-blue-500' : 'bg-white hover:bg-gray-100 dark:hover:bg-gray-700 border-gray-300 dark:border-gray-600'}`}>
-              <label className="cursor-pointer">
+            <li
+              key={index}
+              className={`border rounded ${selectedOption === index ? 'dark:text-white bg-lightAccent dark:bg-darkTertiary border-1 border-lightAccent dark:border-darkTertiary' : 'bg-gray-200 hover:bg-[rgba(240,184,2,0.4)] dark:hover:bg-[rgba(19,190,208,0.4)] border-gray-300 dark:border-darkPrimary duration-300'}`}
+            >
+              <label className="cursor-pointer flex w-full p-2">
                 <input
                   type="radio"
                   name="quiz-option"
@@ -124,17 +127,17 @@ export default function QuizForm({ quiz }: QuizFormProps) {
         </ul>
       </div>
 
-      <div className="mt-6">
+      <div className="mt-12">
         <button
           onClick={handleSubmitAnswer}
           disabled={selectedOption === null}
-          className="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer disabled:cursor-not-allowed disabled:bg-gray-300"
+          className="w-full sm:w-auto px-12 py-2 bg-lightPrimary hover:bg-lightAccent dark:bg-darkPrimary hover:dark:bg-darkTertiary duration-300 text-white rounded-full cursor-pointer disabled:cursor-not-allowed disabled:bg-gray-300"
         >
           {currentQuestionIndexNumber < quiz.questions.length - 1 ? '次のクイズへ' : 'こたえを送る'}
         </button>
       </div>
 
-    </section>
+    </div>
   );
 
 }

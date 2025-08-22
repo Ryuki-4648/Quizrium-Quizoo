@@ -10,10 +10,10 @@ export default function Modal({children, onClose}: ModalProps) {
   return (
     <>
       <div
-        className="bg-white py-8 px-12 rounded-2xl fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 shadow-lg"
+        className="bg-white py-8 px-12 rounded-2xl fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 shadow-lg border-2 border-lightPrimary dark:border-darkSecondary"
       >
         <button
-          className="text-text text-5xl cursor-pointer absolute right-8 top-4 hover:text-lightPrimary dark:hover:text-darkTertiary duration-300"
+          className="text-5xl cursor-pointer absolute right-8 top-4 text-lightPrimary hover:text-lightAccent dark:text-darkSecondary dark:hover:text-darkTertiary duration-300"
           onClick={onClose}
         >
           ×

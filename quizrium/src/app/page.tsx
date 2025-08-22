@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Quiz } from "./api/quizzes/route";
+import { Quiz } from "@/app/api/quizzes/route";
+import { formatDate } from './utils/formatDate';
 
 export default async function Home() {
 
@@ -7,24 +8,54 @@ export default async function Home() {
   const quizzes = await fetchQuizzes();
   console.log(quizzes);
 
+  console.log(quizzes.map(item => item.genre))
+
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center">
-      <h1 className="text-4xl font-bold mb-4">Quizrium / Quizoo</h1>
-      <p className="text-center mb-20">「クイズをつくる」から新しいクイズを作成できます。<br />
-        作成したクイズは「クイズのひろば」に表示されます。
+    <div className="flex w-full xl:w-[1100px] 2xl:w-[1400px] mx-auto min-h-screen flex-col items-center justify-center">
+      {/* <h1 className="text-4xl font-light mb-4 dark:text-white">Quizrium / Quizoo</h1> */}
+
+      <h2 className="text-2xl lg:text-3xl font-bold mb-4 lg:mb-8 dark:text-white">クイズのひろば</h2>
+      <p className="text-md text-center mb-12 lg:mb-20 lg:tracking-wider leading-8 dark:text-white">
+        「クイズをつくる」から<br className="lg:hidden" />新しいクイズを作成できます。<br />
+        作成したクイズは<br className="lg:hidden" />「クイズのひろば」に表示されます。
       </p>
 
-      <h2 className="text-2xl font-bold mb-8">クイズのひろば</h2>
+      <section className="">
+        絞り込み検索
+        <input type="radio" id="" name="search" className="" />
+        <label htmlFor="" className="">すべて</label>
+        
+        <input type="radio" id="" name="search" className="" />
+        <label htmlFor="" className=""></label>
+      </section>
 
       {quizzes.length > 0 ? (
-        <ul className="flex gap-12 flex-wrap justify-between">
+        <ul className="gap-12 2xl:gap-20 flex-wrap justify-center grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 flex-box">
           {quizzes.map((quizItem) => (
-            <li key={quizItem.id} className="border-1 rounded-xl px-4 py-6 w-88">
-              <p className="font-bold mb-2 text-xl">{quizItem.title}</p>
-              <span className="text-sm bg-lightAccent dark:bg-darkSecondary text-white rounded-full py-1 px-2">{quizItem.genre}</span>
-              <p className="mt-4">作成日：{quizItem.createdAt}</p>
-              <p className="mb-6">問題数：{quizItem.questions.length}問</p>
-              <Link href={`/quiz/${quizItem.id}/challenge`} className="flex justify-center rounded-full bg-lightPrimary dark:bg-darkPrimary text-white py-2">クイズにこたえる</Link>
+            <li
+              key={quizItem.id}
+              className="flex flex-col border-2 dark:border-1 border-lightPrimary dark:border-white bg-[rgba(255,255,255,0.7)] dark:bg-[rgba(0,104,136,0.4)] rounded-xl px-4 py-8 w-88"
+            >
+              <p className="font-bold mb-2 text-xl dark:text-white">
+                {quizItem.title}
+              </p>
+              <span
+                className="w-fit inline-block text-sm bg-lightAccent dark:bg-darkSecondary text-white rounded-full py-0.5 px-3"
+              >
+                {quizItem.genre}
+              </span>
+              <p className="mt-4 dark:text-white">
+                作成日：{formatDate(quizItem.createdAt)}
+              </p>
+              <p className="mb-6 dark:text-white">
+                問題数：{quizItem.questions.length}問
+              </p>
+              <Link
+                href={`/quiz/${quizItem.id}/challenge`}
+                className="mt-auto flex justify-center text-center rounded-full bg-lightPrimary hover:bg-lightSecondary gradient-sky-blue text-white font-bold py-2 duration-300"
+              >
+                クイズにこたえる
+              </Link>
             </li>
           ))}
         </ul>

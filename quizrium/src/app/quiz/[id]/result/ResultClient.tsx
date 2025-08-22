@@ -80,30 +80,32 @@ export default function ResultClient({ quiz }: ResultClientProps) {
         <p>不正なアクセスです。ホームに戻ります。</p>
       ) : (
         <section className='flex flex-col items-center justify-center min-h-screen p-4'>
-          <div className='w-2/3 bg-white shadow-md rounded-lg p-6 mx-auto'>
+          <div className='w-4/5 bg-[rgba(255,255,255,0.8)] shadow-md rounded-lg py-12 px-8 mx-auto'>
             <h1 className="text-4xl text-center font-bold mb-6">結果</h1>
             {isScoreCalculated ? (
               <div>
-                <h2 className='text-xl mb-3'>{quiz.title}</h2>
-                <p className="text-sm bg-gray-500 text-white rounded-full py-1 px-2">{quiz.genre}</p>
-                <p className="mt-4 mb-2">あなたのスコア: <span className="text-2xl font-bold mr-2">{score} / {totalQuestions}</span>問</p>
-                <p className="text-lg mb-4">{scoreMessage}</p>
+                <h2 className='text-2xl mb-3'>{quiz.title}</h2>
+                <span className="inline text-sm bg-lightAccent dark:bg-darkSecondary text-white rounded-full py-1 px-2">
+                  {quiz.genre}
+                </span>
+                <p className="mt-8 mb-2">あなたのスコア: <span className="text-3xl font-bold mr-2">{score} / {totalQuestions}</span>問</p>
+                <p className="text-lg mb-8">{scoreMessage}</p>
                 
                 <ul className="mb-12">
                   {quiz.questions.map((question, index) => (
-                    <li key={index} className="mb-4 bg-white shadow-md rounded-lg p-6 mx-auto">
+                    <li key={index} className="mb-8 bg-white shadow-md rounded-lg p-6 mx-auto">
                       <p className="font-bold">問題 {index + 1}</p>
                       <p className="mb-4 text-md">{question.questionText}</p>
                       <dl className="flex gap-x-1 mb-2">
-                        <dt className="mr-2 w-[60px] bg-gray-400 text-white flex align-center justify-center h-[24px] rounded-sm">回答</dt>
+                        <dt className="mr-2 min-w-[60px] bg-lightPrimary dark:bg-darkPrimary text-white flex align-center justify-center h-[24px] rounded-sm">回答</dt>
                         <dd>{question.options[answers[index]]}</dd>
                       </dl>
                       <dl className="flex gap-x-1 mb-2">
-                        <dt className="mr-2 w-[60px] bg-gray-400 text-white flex align-center justify-center h-[24px] rounded-sm">正解</dt>
+                        <dt className="mr-2 min-w-[60px] bg-lightPrimary dark:bg-darkPrimary text-white flex align-center justify-center h-[24px] rounded-sm">正解</dt>
                         <dd>{question.options[question.correctIndex]}</dd>
                       </dl>
                       <dl className="flex gap-x-1">
-                        <dt className="mr-2 w-[60px] bg-gray-400 text-white flex align-center justify-center h-[24px] rounded-sm">解説</dt>
+                        <dt className="mr-2 min-w-[60px] bg-lightPrimary dark:bg-darkPrimary text-white flex align-center justify-center h-[24px] rounded-sm">解説</dt>
                         <dd>{question.explanation}</dd>
                       </dl>
                     </li>
@@ -115,7 +117,7 @@ export default function ResultClient({ quiz }: ResultClientProps) {
             )}
             <button
               onClick={handleBackToHome}
-              className="flex justify-center mx-auto mt-4 px-4 py-2 bg-blue-500 text-white rounded cursor-pointer hover:bg-blue-600 transition-colors"
+              className="w-[200px] flex justify-center mx-auto mt-4 px-4 py-2 bg-lightPrimary hover:bg-lightAccent duration-300 gradient-sky-blue text-white rounded-full cursor-pointer"
             >
               ホームに戻る
             </button>

@@ -33,7 +33,7 @@ export default function Navigation() {
         </Link>
         <Link
           href="/quiz/create"
-          className="flex items-center justify-center tracking-wider duration-300 text-text border-2 border-lightAccent dark:border-none hover:text-lightAccent hover:bg-white dark:text-white w-[200px] bg-lightAccent gradient-sky-blue rounded-full px-4 py-2 font-bold"
+          className="flex items-center justify-center tracking-wider duration-300 text-text border-2 border-lightAccent dark:border-none hover:text-lightAccent hover:bg-white dark:text-white dark:hover:text-white w-[200px] bg-lightAccent gradient-sky-blue rounded-full px-4 py-2 font-bold"
         >
           クイズをつくる
         </Link>
@@ -45,6 +45,7 @@ export default function Navigation() {
           <p className="text-text mb-4 font-bold text-center text-lg">
             Quizrium / Quizoo の世界へようこそ！
           </p>
+          <span className="flex w-[64px] h-1 bg-lightPrimary dark:bg-darkSecondary rounded-lg text-center mx-auto mb-8"></span>
           <p className="text-text mb-8">
             新しくクイズをつくるときは「クイズをつくる」をクリックしてください。<br />
             つくったクイズは「クイズのひろば」に表示されます。<br /><br />
