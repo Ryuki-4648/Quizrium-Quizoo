@@ -1,25 +1,20 @@
-import Link from "next/link";
 import { Quiz } from "@/app/api/quizzes/route";
-import { formatDate } from './utils/formatDate';
+import HomeClient from "./HomeClient";
 
 export default async function Home() {
 
   // データ取得関数の呼び出し
   const quizzes = await fetchQuizzes();
-  console.log(quizzes);
 
   // ジャンル
-  console.log(quizzes.map(item => item.genre))
   const quizzesGenre = quizzes.map(item => item.genre);
   // 重複しているジャンルを除去
   const filterQuizzesGenre = quizzesGenre.filter((value, index, self) =>
     self.indexOf(value) === index
   );
-  console.log(filterQuizzesGenre);
 
   // 「未分類」を最後に移動。空のジャンルは表示しない。
   const changeFilterQuizzesGenre = filterQuizzesGenre.filter(item => item !== "未分類");
-  console.log(changeFilterQuizzesGenre)
   if (filterQuizzesGenre.includes("未分類")) {
     changeFilterQuizzesGenre.push("未分類");
   } else if (filterQuizzesGenre.includes("")) {
@@ -31,67 +26,15 @@ export default async function Home() {
       {/* <h1 className="text-4xl font-light mb-4 dark:text-white">Quizrium / Quizoo</h1> */}
 
       <h2 className="text-2xl lg:text-3xl font-bold mb-4 lg:mb-8 dark:text-white">クイズのひろば</h2>
-      <p className="text-md text-center mb-12 lg:mb-16 lg:tracking-wider leading-8 dark:text-white">
+      <p className="text-base text-center mb-12 lg:mb-16 lg:tracking-wider leading-8 dark:text-white">
         「クイズをつくる」から<br className="lg:hidden" />新しいクイズを作成できます。<br />
         作成したクイズは<br className="lg:hidden" />「クイズのひろば」に表示されます。
       </p>
 
-      <section className="w-full mb-12">
-        <div
-          className="w-full bg-[rgba(255,255,255,0.7)] dark:bg-[rgba(0,104,136,0.4)] border-2 border-lightPrimary dark:border-white rounded-lg p-4 flex flex-wrap gap-4"
-        >
-          <p className="font-bold text-md mr-2 dark:text-white">絞り込み検索</p>
-          <input type="radio" id="all" name="search" className="hidden" />
-          <label htmlFor="all" className="cursor-pointer bg-gray-300 py-0.5 px-4 rounded-full">すべて</label>
-          {changeFilterQuizzesGenre.map((genre, index) => (
-            <div key={index}>
-              <input type="radio" id={`genre-${index}`} name="search" className="hidden" />
-              <label
-                htmlFor={`genre-${index}`}
-                className="cursor-pointer bg-gray-300 py-0.5 px-3 rounded-full"
-              >
-                {genre}
-              </label>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {quizzes.length > 0 ? (
-        <ul
-          className="gap-12 2xl:gap-20 flex-wrap justify-center grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 flex-box"
-        >
-          {quizzes.map((quizItem) => (
-            <li
-              key={quizItem.id}
-              className="flex flex-col border-2 dark:border-1 border-lightPrimary dark:border-white bg-[rgba(255,255,255,0.7)] dark:bg-[rgba(0,104,136,0.4)] rounded-xl px-4 py-8 w-88"
-            >
-              <p className="font-bold mb-2 text-xl dark:text-white">
-                {quizItem.title}
-              </p>
-              <span
-                className="w-fit inline-block text-sm bg-lightAccent dark:bg-darkSecondary text-white rounded-full py-0.5 px-3"
-              >
-                {quizItem.genre}
-              </span>
-              <p className="mt-4 dark:text-white">
-                作成日：{formatDate(quizItem.createdAt)}
-              </p>
-              <p className="mb-6 dark:text-white">
-                問題数：{quizItem.questions.length}問
-              </p>
-              <Link
-                href={`/quiz/${quizItem.id}/challenge`}
-                className="mt-auto flex justify-center text-center rounded-full bg-lightPrimary hover:bg-lightSecondary gradient-sky-blue text-white font-bold py-2 duration-300"
-              >
-                クイズにこたえる
-              </Link>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>まだクイズがありません</p>
-      )}
+    <HomeClient
+      quizzes={quizzes}
+      changeFilterQuizzesGenre={changeFilterQuizzesGenre}
+    />
     </div>
   );
 }
