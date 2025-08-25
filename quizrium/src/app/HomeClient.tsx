@@ -12,8 +12,12 @@ export default function HomeClient({ quizzes, changeFilterQuizzesGenre }: {
 ) {
 
   const [selectedGenre, setSelectedGenre] = useState("all");
-  
-  const [sortedQuizzes, setSortedQuizzes] = useState<Quiz[]>(quizzes); // ソート済み配列をstateで管理
+
+  // const [sortedQuizzes, setSortedQuizzes] = useState<Quiz[]>(quizzes);
+  // 初期状態で作成日の降順で並べる
+  const [sortedQuizzes, setSortedQuizzes] = useState<Quiz[]>(
+    [...quizzes].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+  );
   const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
 
   // ジャンル別絞り込みだけの場合
