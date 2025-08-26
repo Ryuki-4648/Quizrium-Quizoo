@@ -1,8 +1,8 @@
 'use client';
 
 interface ModalProps {
-  children: React.ReactNode;
-  onClose: () => void;  // 閉じるボタンを押した時に親に通知
+  children: React.ReactNode; // Reactが描画できるすべてのものを表す型
+  onClose: () => void; // Modal コンポーネントは自分自身では「表示/非表示」を管理していない。モーダルを閉じる時に親へ通知するコールバック関数の型定義（状態を持っているのは 親コンポーネント）
 }
 
 export default function Modal({children, onClose}: ModalProps) {
