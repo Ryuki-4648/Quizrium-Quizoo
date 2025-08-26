@@ -1,9 +1,9 @@
-import Modal from "./Modal";
+import Modal from "./BaseModal";
 
 export default function DisclaimerModal({ onClose }: { onClose: () => void }) {
   return (
     <Modal onClose={onClose}>
-      <h3 className="text-text text-xl lg:text-2xl font-bold mb-4 text-center">免責事項</h3>
+      <h3 className="text-text text-xl lg:text-3xl font-bold mb-4 text-center">免責事項</h3>
       <p className="text-text mb-8 text-sm lg:text-base">
         Quizrium（クイズリウム） / Quizoo（クイズー）（以下「本サービス」）は、誰でも簡単にクイズを作成・公開・利用できるWebアプリです。<br />
         本免責事項は、本サービスの利用に関して生じ得る責任の範囲を定めるものです。

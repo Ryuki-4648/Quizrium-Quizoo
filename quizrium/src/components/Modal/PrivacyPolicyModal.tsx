@@ -1,9 +1,9 @@
-import Modal from "./Modal";
+import Modal from "./BaseModal";
 
 export default function PrivacyPolicyModal({ onClose }: { onClose: () => void }) {
   return (
     <Modal onClose={onClose}>
-      <h3 className="text-text text-xl lg:text-2xl font-bold mb-4 text-center">プライバシーポリシー</h3>
+      <h3 className="text-text text-xl lg:text-3xl font-bold mb-4 text-center">プライバシーポリシー</h3>
       <p className="text-text mb-8 text-sm lg:text-base">
         Quizrium（クイズリウム） / Quizoo（クイズー）（以下「本サービス」）は、誰でも簡単にクイズを作成・公開できるWebアプリです。<br />
         本プライバシーポリシー（以下「本ポリシー」）は、本サービスにおけるユーザーの個人情報等の取扱いについて定めるものです。

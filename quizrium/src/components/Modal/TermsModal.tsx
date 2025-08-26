@@ -1,9 +1,9 @@
-import Modal from "./Modal";
+import Modal from "./BaseModal";
 
 export default function TermsModal({ onClose }: { onClose: () => void }) {
   return (
     <Modal onClose={onClose}>
-      <h3 className="text-text text-xl lg:text-2xl font-bold mb-4 text-center">利用規約</h3>
+      <h3 className="text-text text-xl lg:text-3xl font-bold mb-4 text-center">利用規約</h3>
       <p className="text-text mb-8 text-sm lg:text-base">
         Quizrium（クイズリウム） / Quizoo（クイズー）（以下「本サービス」）は、誰でも簡単にクイズを作成・公開・回答できるWebアプリです。<br />
         本利用規約（以下「本規約」）は、本サービスの利用条件を定めるものです。ユーザーは、本サービスを利用することで本規約に同意したものとみなされます。
