@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import DisclaimerModal from "@/components/Modal/DisclaimerModal";
 import TermsModal from "@/components/Modal/TermsModal";
 import PrivacyPolicyModal from "@/components/Modal/PrivacyPolicyModal";
@@ -38,8 +39,16 @@ export default function Footer() {
             免責事項
           </li>
           <li>
-            <Link target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSe5RJxhW1gDHo5JDDYZaLQrQS8Ip2kTloIIk4l9EhR2yrfHUA/viewform?usp=sf_link">
+            <Link
+              className="group flex items-center duration-300 hover:text-lightAccent dark:hover:text-darkSecondary"
+              target="_blank"
+              href="https://docs.google.com/forms/d/e/1FAIpQLSe5RJxhW1gDHo5JDDYZaLQrQS8Ip2kTloIIk4l9EhR2yrfHUA/viewform?usp=sf_link"
+            >
               お問い合わせ
+              <OpenInNewIcon
+                className="ml-1 text-white group-hover:text-lightAccent dark:group-hover:text-darkSecondary"
+                style={{ fontSize: 20 }}
+              />
             </Link>
           </li>
         </ul>
@@ -57,3 +66,8 @@ export default function Footer() {
     </>
   )
 }
+
+/**
+＜勉強用メモ＞ 
+アイコンを 親要素の hover: に連動 させるには group を使う
+ */
