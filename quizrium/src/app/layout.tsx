@@ -1,14 +1,15 @@
 import type { Metadata } from 'next';
-import { Kiwi_Maru } from 'next/font/google';
+// import { Kiwi_Maru } from 'next/font/google';
 import '@/app/globals.css';
 import { Providers } from '@/app/providers';
 import Footer from '@/components/Layout/Footer';
 import Header from '@/components/Layout/Header';
 
-const kiwiMaru = Kiwi_Maru({
-  subsets: ['latin'],
-  weight: ['300', '400', '500'],
-});
+// git cloneするとKiwi Maruフォントが読み込まれないため、headにlinkタグを読み込ませる方法に変更
+// const kiwiMaru = Kiwi_Maru({
+//   subsets: ['latin'],
+//   weight: ['300', '400', '500'],
+// });
 
 /* メタデータ（Metadata型を使用する） */
 export const metadata: Metadata = {
@@ -30,7 +31,13 @@ export default function RootLayout({children}: RootLayoutProps) {
 
     return (
       <html lang="ja" suppressHydrationWarning>
-        <body className={kiwiMaru.className}>
+        {/* <body className={kiwiMaru.className}> */}
+        <head>
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
+          <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@300;400;500&display=swap" rel="stylesheet" />
+        </head>
+        <body>
           <Providers>
             <div className="flex flex-col min-h-screen">
               <Header />
