@@ -83,7 +83,7 @@ export default function HomeClient({ quizzes, changeFilterQuizzesGenre }: {
           </div>
 
           {/* 並び替え */}
-          <div className="flex w-full">
+          <div className="flex w-full flex-wrap">
             <p className="font-bold text-base mr-12 dark:text-white w-full lg:w-auto mb-2 lg:mb-0">並び替え</p>
             <div className="flex gap-4">
               <button

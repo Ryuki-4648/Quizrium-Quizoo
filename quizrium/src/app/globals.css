@@ -42,17 +42,6 @@ body {
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* .l-main {
-  background-image: url('/assets/img/bg/bg_dark03.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  min-height: 100vh;
-  color: var(--color-foreground);
-} */
-
-
 @layer utilities {
   .main-bg {
     @apply bg-cover bg-center bg-no-repeat bg-fixed min-h-screen;
