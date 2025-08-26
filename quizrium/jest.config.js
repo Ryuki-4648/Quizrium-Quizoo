@@ -46,6 +46,7 @@ module.exports = {
     {
       // babel.config.jsは削除し、babel-jest用の設定をこのファイルに残す（アプリ本体では SWC（Next.js デフォルト）を使い、テスト実行時だけ Babel を使う構成）
       // babel.config.jsファイルがあると「Syntax error: "next/font" requires SWC although Babel is being used due to a custom babel config being present.」エラーが発生する
+      // https://zenn.dev/ma_me/articles/c4ab23f91f2179, https://nextjs.org/docs/messages/babel-font-loader-conflict
       presets: [
         '@babel/preset-env',
         ['@babel/preset-react', { runtime: 'automatic' }],
