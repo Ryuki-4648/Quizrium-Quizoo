@@ -3,31 +3,26 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Modal from "@/components/Modal";
-// import { usePathname } from "next/navigation";
+import HowToEnjoyModal from "../Modal/HowToEnjoyModal";
 
 export default function Navigation() {
 
-  const [displayModal, setDisplayModal] = useState(false);
-  const handleHowToPlay = () => setDisplayModal(true);
-  const closeModal = () => setDisplayModal(false);
-
-  // 現在のパスを取得
-  // const pathname = usePathname(); // usePathnameフックを使用
+  const [activeModal, setActiveModal] = useState<"howto" | null>(null);
+  const closeModal = () => setActiveModal(null);
 
   return (
     <>
       <nav className="space-y-5 lg:space-y-0 lg:space-x-8 flex items-center justify-center w-full lg:w-auto flex-wrap lg:flex-nowrap">
         <Link
           href=""
-          className="text-lg lg:text-md text-white duration-300 hover:text-lightAccent dark:hover:text-darkTertiary w-full lg:w-auto"
-          onClick={handleHowToPlay}
+          className="text-lg lg:text-base text-white duration-300 hover:text-lightAccent dark:hover:text-darkSecondary w-full lg:w-auto"
+          onClick={() => setActiveModal("howto")}
         >
           あそびかた
         </Link>
         <Link
           href="/"
-          className="text-lg lg:text-md text-white duration-300 hover:text-lightAccent dark:hover:text-darkTertiary w-full lg:w-auto"
+          className="text-lg lg:text-base text-white duration-300 hover:text-lightAccent dark:hover:text-darkSecondary w-full lg:w-auto"
         >
           クイズのひろば
         </Link>
@@ -39,27 +34,7 @@ export default function Navigation() {
         </Link>
       </nav>
 
-      {displayModal && (
-        <Modal onClose={closeModal}>
-          <h2 className="text-text text-3xl font-bold mb-4 text-center">あそびかた</h2>
-          <p className="text-text mb-4 font-bold text-center text-lg">
-            Quizrium / Quizoo の世界へようこそ！
-          </p>
-          <span className="flex w-[64px] h-1 bg-lightPrimary dark:bg-darkSecondary rounded-lg text-center mx-auto mb-8"></span>
-          <p className="text-text mb-8">
-            新しくクイズをつくるときは「クイズをつくる」をクリックしてください。<br />
-            つくったクイズは「クイズのひろば」に表示されます。<br /><br />
-            「クイズのひろば」では、他の人がつくったクイズを見ることができます。<br />
-            「クイズにこたえる」をクリックしてチャレンジしてみよう。
-          </p>
-          <h2 className="text-text text-xl font-bold mb-4 text-center">モードの説明</h2>
-          <p className="text-text">
-            このサイトでは、ダークモード<span className="text-darkSecondary mx-0.5">Quizrium</span>とライトモード<span className="text-lightPrimary mx-0.5">Quizoo</span>を切り替えることができます。<br />
-            ダークモードでは「夜空に浮かぶ水族館」、ライトモードでは「幻想的な動物園」をイメージしたデザインになっています。<br />
-            気分に合わせてモードを切り替えてみてください。
-          </p>
-        </Modal>
-      )}
+      {activeModal === "howto" && <HowToEnjoyModal onClose={closeModal} />}
     </>
   ) 
 }

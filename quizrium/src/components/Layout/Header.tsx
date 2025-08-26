@@ -19,7 +19,7 @@ export default function Header() {
       <header className="bg-lightPrimary dark:bg-darkPrimary text-white pt-4 pb-4 lg:pt-4 lg:pb-4 fixed top-0 left-0 right-0 z-50">
         <div className="mx-auto px-4 flex items-center justify-between flex-wrap lg:flex-nowrap">
           <Link href="/">
-            <h1 className="text-md md:text-lg lg:text-2xl sm:tracking-wide font-light duration-300 hover:text-lightAccent dark:hover:text-darkTertiary">
+            <h1 className="text-base md:text-lg lg:text-2xl sm:tracking-wide font-light duration-300 hover:text-lightAccent dark:hover:text-darkSecondary">
               Quizrium / Quizoo
               <span className="text-xs sm:text-sm text-white font-light lg:font-normal ml-2 lg:ml-0 xl:ml-4 inline lg:block xl:inline">ふしぎなクイズのせかい</span>
             </h1>

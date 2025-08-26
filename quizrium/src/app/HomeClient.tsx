@@ -43,11 +43,11 @@ export default function HomeClient({ quizzes, changeFilterQuizzesGenre }: {
     <>
       <section className="w-full mb-12">
         <div
-          className="w-full bg-[rgba(255,255,255,0.7)] dark:bg-[rgba(0,104,136,0.4)] border-1 border-lightPrimary dark:border-white rounded-lg p-4 flex flex-wrap gap-4"
+          className="w-full bg-[rgba(255,255,255,0.7)] dark:bg-[rgba(0,104,136,0.4)] border-1 border-lightPrimary dark:border-white rounded-lg p-4 flex flex-wrap gap-5"
         >
           {/* ジャンル絞り込み */}
-          <div className="flex flex-wrap gap-2">
-            <p className="font-bold text-base mr-2 dark:text-white">絞り込み検索</p>
+          <div className="flex flex-wrap gap-3">
+            <p className="font-bold text-base mr-2 dark:text-white w-full lg:w-auto mb-2 lg:mb-0">絞り込み検索</p>
             <input
               type="radio"
               id="all"
@@ -58,7 +58,7 @@ export default function HomeClient({ quizzes, changeFilterQuizzesGenre }: {
             />
             <label
               htmlFor="all"
-              className={`cursor-pointer hover:bg-lightAccent dark:hover:bg-darkSecondary duration-300 py-0.5 px-4 rounded-full ${selectedGenre === "all" ? 'bg-lightPrimary dark:bg-darkTertiary text-white' : 'bg-white'}`}
+              className={`text-sm lg:text-base cursor-pointer hover:bg-lightAccent dark:hover:bg-darkSecondary duration-300 py-0.5 px-4 rounded-full ${selectedGenre === "all" ? 'bg-lightPrimary dark:bg-darkTertiary text-white' : 'bg-white'}`}
             >
               すべて
             </label>
@@ -74,7 +74,7 @@ export default function HomeClient({ quizzes, changeFilterQuizzesGenre }: {
                 />
                 <label
                   htmlFor={`genre-${index}`}
-                  className={`cursor-pointer hover:bg-lightAccent dark:hover:bg-darkSecondary duration-300 py-0.5 px-3 rounded-full ${selectedGenre === genre ? 'bg-lightPrimary dark:bg-darkTertiary text-white' : 'bg-white'}`}
+                  className={`text-sm lg:text-base cursor-pointer hover:bg-lightAccent dark:hover:bg-darkSecondary duration-300 py-0.5 px-3 rounded-full ${selectedGenre === genre ? 'bg-lightPrimary dark:bg-darkTertiary text-white' : 'bg-white'}`}
                 >
                   {genre}
                 </label>
@@ -84,8 +84,8 @@ export default function HomeClient({ quizzes, changeFilterQuizzesGenre }: {
 
           {/* 並び替え */}
           <div className="flex w-full">
-            <p className="font-bold text-base mr-12 dark:text-white">並び替え</p>
-            <div className="flex gap-x-4">
+            <p className="font-bold text-base mr-12 dark:text-white w-full lg:w-auto mb-2 lg:mb-0">並び替え</p>
+            <div className="flex gap-4">
               <button
                 className={`cursor-pointer hover:bg-lightAccent dark:hover:bg-darkSecondary duration-300 py-0.5 px-3 rounded-full ${sortOrder === "newest" ? 'bg-lightPrimary dark:bg-darkTertiary text-white' : 'bg-white'}`}
                 onClick={handleNewestOrderCreatedAt}
@@ -93,7 +93,7 @@ export default function HomeClient({ quizzes, changeFilterQuizzesGenre }: {
                 作成日が新しい順
               </button>
               <button
-                className={`cursor-pointer hover:bg-lightAccent dark:hover:bg-darkSecondary duration-300 py-0.5 px-3 rounded-full ${sortOrder === "oldest" ? 'bg-lightPrimary dark:bg-darkTertiary text-white' : 'bg-white'}`}
+                className={`text-sm lg:text-base cursor-pointer hover:bg-lightAccent dark:hover:bg-darkSecondary duration-300 py-0.5 px-3 rounded-full ${sortOrder === "oldest" ? 'bg-lightPrimary dark:bg-darkTertiary text-white' : 'bg-white'}`}
                 onClick={handleOldestOrderCreatedAt}
               >
                 作成日が古い順

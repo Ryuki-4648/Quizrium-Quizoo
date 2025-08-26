@@ -19,7 +19,7 @@ export default function Footer() {
         <div className="dark:hidden absolute -top-12 -left-4 w-0 h-0 border-l-[33px] border-l-transparent border-r-[33px] border-r-transparent border-b-[70px] border-b-lightPrimary"></div>
         <div className="dark:hidden absolute -top-16 left-8 w-0 h-0 border-l-[33px] border-l-transparent border-r-[33px] border-r-transparent border-b-[70px] border-b-lightPrimary"></div>
         <div className="dark:hidden absolute -top-10 left-20 w-0 h-0 border-l-[33px] border-l-transparent border-r-[33px] border-r-transparent border-b-[70px] border-b-lightPrimary"></div>
-        <ul className="container mx-auto px-4 flex justify-center gap-2 lg:gap-8 mb-4 flex-wrap">
+        <ul className="container mx-auto px-4 flex justify-center gap-4 lg:gap-8 mb-4 flex-wrap">
           <li
             className="text-sm lg:text-base cursor-pointer duration-300 hover:text-lightAccent dark:hover:text-darkSecondary"
             onClick={() => setActiveModal("privacy")}
@@ -40,13 +40,13 @@ export default function Footer() {
           </li>
           <li>
             <Link
-              className="group flex items-center duration-300 hover:text-lightAccent dark:hover:text-darkSecondary"
+              className="text-sm lg:text-base group flex items-center duration-300 hover:text-lightAccent dark:hover:text-darkSecondary"
               target="_blank"
               href="https://docs.google.com/forms/d/e/1FAIpQLSe5RJxhW1gDHo5JDDYZaLQrQS8Ip2kTloIIk4l9EhR2yrfHUA/viewform?usp=sf_link"
             >
               お問い合わせ
               <OpenInNewIcon
-                className="ml-1 text-white group-hover:text-lightAccent dark:group-hover:text-darkSecondary"
+                className="text-sm lg:text-base ml-1 text-white group-hover:text-lightAccent dark:group-hover:text-darkSecondary"
                 style={{ fontSize: 20 }}
               />
             </Link>

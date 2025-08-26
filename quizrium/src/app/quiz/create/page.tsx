@@ -225,7 +225,7 @@ export default function CreateQuizPage() {
             <h3 className="text-xl font-semibold text-text dark:text-white mb-4">基本情報</h3>
             <div>
               <label
-                className="text-md font-bold text-text dark:text-white mb-2 flex items-center"
+                className="text-base font-bold text-text dark:text-white mb-2 flex items-center"
               >
                 タイトル
                 <RequiredBadgeInputGroup />
@@ -244,7 +244,7 @@ export default function CreateQuizPage() {
             )}
             </div>
             <div>
-              <label className="text-md font-bold text-text dark:text-white mb-2 flex items-center">
+              <label className="text-base font-bold text-text dark:text-white mb-2 flex items-center">
                 ジャンル
               </label>
               <input 
@@ -277,7 +277,7 @@ export default function CreateQuizPage() {
 
                 {/* 問題文 */}
                 <div className="mb-8">
-                  <label className="text-md font-medium text-text dark:text-white mb-2 flex items-center">
+                  <label className="text-base font-medium text-text dark:text-white mb-2 flex items-center">
                     問題文
                     <RequiredBadgeInputGroup />
                   </label>
@@ -297,7 +297,7 @@ export default function CreateQuizPage() {
                 {/* 選択肢 */}
                 <div className="mb-4">
                   <div className="flex justify-between items-center mb-2">
-                    <label className="text-md font-medium text-text dark:text-white flex items-center">
+                    <label className="text-base font-medium text-text dark:text-white flex items-center">
                       選択肢
                       <RequiredBadgeInputGroup />
                     </label>
@@ -348,7 +348,7 @@ export default function CreateQuizPage() {
 
                   {/* 説明文 */}
                   <div className="mt-8">
-                    <label className="block text-md font-medium text-text dark:text-white mb-2">
+                    <label className="block text-base font-medium text-text dark:text-white mb-2">
                       問題の解説
                     </label>
                     <textarea

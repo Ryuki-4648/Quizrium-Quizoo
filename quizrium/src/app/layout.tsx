@@ -14,6 +14,9 @@ const kiwiMaru = Kiwi_Maru({
 export const metadata: Metadata = {
   title: 'ふしぎなクイズのせかい  | Quizrium（クイズリウム） / Quizoo（クイズー） | だれでもクイズ作成アプリ。',
   description: '誰でもクイズが作成できるアプリです。QuizriumはReact(v19)とNext.js(v15)で構築されています。ライトモードは動物園（Quizoo）、ダークモードでは水族館（Quizrium）をイメージしたデザインに変化します。',
+  icons: {
+    icon: "/assets/favicon.ico",
+  },
 };
 
 /* レイアウトの型定義を行う */
